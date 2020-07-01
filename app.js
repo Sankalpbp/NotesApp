@@ -1,7 +1,11 @@
-'use strict'
+ 'use strict'
 
+const validator = require('validator');
 const fs = require('fs');
-const add = require('./utils.js');
 const getNotes = require('./notes.js');
+const chalk = require('chalk');
 
 console.log(getNotes());
+console.log(chalk.green('Success'));
+console.log(chalk.bold.red('Hey guys, how you doing'));
+
