@@ -2,9 +2,11 @@
 
 const fs = require('fs');
 const chalk = require('chalk');
+
+
 const getNotes = () => {
     return "Your notes...";
-}
+};
 
 const loadNotes = () => {
 
@@ -20,15 +22,15 @@ const loadNotes = () => {
         // return an empty JS array
         return [];
     }
-}
+};
 
 const addNote = (title, body) => {
     // get the array of JS objects
     const notes = loadNotes();
 
-    const duplicateNotes = notes.filter((note) => (note.title === title));
-
-    if (duplicateNotes.length === 0) {
+    const duplicateNote = notes.find((note) => note.title == title);
+    
+    if (duplicateNote === undefined) {
         notes.push({
             title: title,
             body: body
@@ -39,13 +41,13 @@ const addNote = (title, body) => {
     } else {
         console.log(chalk.red.inverse('Note title taken.'));
     }
-}
+};
 
 const saveNotes = (notes) => {
 
     const dataJSON = JSON.stringify(notes);
     fs.writeFileSync('notes.json', dataJSON);
-}
+};
 
 const removeNote = (title) => {
 
@@ -59,7 +61,7 @@ const removeNote = (title) => {
         console.log(chalk.bold.green.inverse('Note removed!'));        
         saveNotes(notestoKeep);
     }
-}
+};
 
 const listNotes = () => {
     const notes = loadNotes();
@@ -68,11 +70,27 @@ const listNotes = () => {
     notes.forEach((note) => {
         console.log(note.title);
     });
+};
+
+const readNote = (title) => {
+    const notes = loadNotes();
+
+    const noteToRead = notes.find((note) => {
+        return note.title === title;
+    });
+
+    if (noteToRead === undefined) {
+        console.log(chalk.red.bold.inverse('No Note found.'));
+    } else {
+        console.log('Title: ' + chalk.green.inverse(noteToRead.title));
+        console.log('Body: ' + noteToRead.body);
+    }
 }
 
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
-    listNotes: listNotes
+    listNotes: listNotes,
+    readNote: readNote
 };
