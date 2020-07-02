@@ -49,7 +49,7 @@ const saveNotes = (notes) => {
 
 const removeNote = (title) => {
 
-    const notes = loadNotes(title);
+    const notes = loadNotes();
     
     const notestoKeep = notes.filter((note) => (note.title !== title));
 
@@ -61,8 +61,18 @@ const removeNote = (title) => {
     }
 }
 
+const listNotes = () => {
+    const notes = loadNotes();
+    console.log(chalk.blue.bold('Your notes...'));
+
+    notes.forEach((note) => {
+        console.log(note.title);
+    });
+}
+
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes
 };

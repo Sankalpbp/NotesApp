@@ -1,7 +1,6 @@
  'use strict'
 
 const notes = require('./notes.js');
-const chalk = require('chalk');
 const yargs = require('yargs');
 
 yargs.version('1.1.0');
@@ -51,7 +50,7 @@ yargs.command({
     command: 'list',
     description: 'List the notes',
     handler() {
-        console.log('Listing the notes...');
+        notes.listNotes();
     }
 });
 
